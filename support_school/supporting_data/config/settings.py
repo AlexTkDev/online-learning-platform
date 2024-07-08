@@ -37,9 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # frameworks
     "rest_framework",
-    "blog",
     # apps
-    "registrations_to_cource",
+    "blog",
 ]
 
 MIDDLEWARE = [
