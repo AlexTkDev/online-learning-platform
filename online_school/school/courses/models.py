@@ -1,3 +1,14 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
-# Create your models here.
+User = get_user_model()
+
+
+class Course(models.Model):
+    course_name = models.CharField(max_length=100),
+    teacher_name = models.CharField(max_length=50),
+    student_name = models.ForeignKey(User.username, on_delete=models.CASCADE),
+    start_date = models.DateField()
+
+    def __str__(self):
+        return self.course_name
