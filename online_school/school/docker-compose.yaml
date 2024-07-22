@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  database:
+    image: "postgres:16"
+    container_name: online_school_database
+    ports:
+      - "5432:5432"
+    env_file:
+      - ".env"
+    volumes:
+      - "pg_data:/var/lib/postgresql/data"
+
+  api: &app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: online_school
+    container_name: online_school_api
+    ports:
+      - "8000:8000"
+    env_file:
+      - ".env"
+    depends_on:
+      - database
+    volumes:
+      - ./:/app/
+
+volumes:
+  pg_data:
