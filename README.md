@@ -1,4 +1,4 @@
-## A platform for organizing and conducting online courses on Django.
+## A platform for organizing and conducting online courses on Django 📚.
 > on development stage
 ---
 
