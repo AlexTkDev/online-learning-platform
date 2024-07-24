@@ -5,9 +5,9 @@ User = get_user_model()
 
 
 class Course(models.Model):
-    course_name = models.CharField(max_length=100),
-    teacher_name = models.CharField(max_length=50),
-    student_name = models.ForeignKey(User.username, on_delete=models.CASCADE),
+    course_name = models.CharField(max_length=100)
+    teacher_name = models.CharField(max_length=50)
+    student_name = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     start_date = models.DateField()
 
     def __str__(self):
