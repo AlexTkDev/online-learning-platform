@@ -1,4 +1,6 @@
-## A platform for organizing and conducting online courses on Django.
+## A platform for organizing and conducting online courses on Django 📚.
+> on development stage
+---
 
 **👨‍💻 Description of main functions:**
 > System of testing and automatic evaluation of student results.
