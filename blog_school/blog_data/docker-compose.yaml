@@ -5,9 +5,11 @@ services:
     image: "postgres:16"
     container_name: blog_school_database
     ports:
-      - "5433:5433"
-    env_file:
-      - ".env"
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - "pg_data:/var/lib/postgresql/data"
 
