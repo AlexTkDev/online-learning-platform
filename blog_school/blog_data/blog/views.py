@@ -1,19 +1,21 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 from blog.models import Post
 from blog.serializers import PostSerializer
 
 
-class PostList(generics.ListCreateAPIView):
+class PostList(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = PostSerializer
+    queryset = Post.objects.all()
 
-    def get_queryset(self):
-        queryset = Post.objects.all()
-        post_id = self.request.query_params.get('id', None)
-        if post_id is not None:
-            queryset = queryset.filter(id=post_id)
-        return queryset
+
+class CreatePost(generics.CreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
 
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
