@@ -3,7 +3,7 @@ version: '3.8'
 services:
   database:
     image: "postgres:16"
-    container_name: blog_school_database
+    container_name: blog_database
     ports:
       - "5432:5432"
     environment:
@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: blog_school
-    container_name: online_school_api
+    container_name: blog_api
     ports:
       - "9000:9000"
     env_file:
