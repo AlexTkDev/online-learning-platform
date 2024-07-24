@@ -4,6 +4,7 @@ FROM python:3.12-slim
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
        build-essential \
+       postgresql-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
