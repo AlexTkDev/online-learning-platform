@@ -4,7 +4,6 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-
 # Конфигурация схемы API для Swagger
 schema_view = get_schema_view(
     openapi.Info(
@@ -28,6 +27,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/users/', include('users.urls')),
+
+    # Courses ================================================
     path('api/courses/', include('courses.urls')),
 
 ]

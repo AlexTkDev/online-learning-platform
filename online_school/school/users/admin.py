@@ -7,7 +7,7 @@ User = get_user_model()
 
 
 class UserCourseInline(admin.StackedInline):
-    model = Course
+    model = Course.students.through
     extra = 0
     can_delete = True
 
