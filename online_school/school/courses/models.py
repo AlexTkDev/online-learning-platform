@@ -7,7 +7,7 @@ User = get_user_model()
 class Course(models.Model):
     course_name = models.CharField(max_length=100)
     teacher_name = models.CharField(max_length=50)
-    students = models.ManyToManyField(User, related_name='courses', null=True, blank=True)
+    students = models.ManyToManyField(User, related_name='courses')
     start_date = models.DateField()
 
     def __str__(self):
