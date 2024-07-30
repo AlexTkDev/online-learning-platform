@@ -1,6 +1,9 @@
 from django.db import models
 
 from courses.models import Course
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 # Create your models here.
@@ -14,4 +17,15 @@ class Tests(models.Model):
     test_from_course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.test_name
+        return f"{self.test_name} - {self.test_date}"
+
+
+class Grades(models.Model):
+    test_name = models.ForeignKey(Tests.test_name, on_delete=models.CASCADE)
+    grade = models.IntegerField(max_length=100)
+    student_name = models.ForeignKey(User.username, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.test_name} - {self.date}"
+
