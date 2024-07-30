@@ -1,5 +1,6 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from courses.models import Course
 from courses.serializers import CourseSerializer
@@ -9,19 +10,24 @@ from users.models import User
 class CourseListAPIView(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class CreateCourseAPIView(generics.CreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class RetriveUpdateDestroyCoursesAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class AddStudentToCourseAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, course_id, user_id):
         try:
             course = Course.objects.get(pk=course_id)
