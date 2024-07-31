@@ -2,14 +2,15 @@ from django.db import models
 
 from courses.models import Course
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 User = get_user_model()
 
 
-# Create your models here.
-
 class Tests(models.Model):
-    test_name = models.CharField(max_length=100)
+    test_name = models.IntegerField(
+        default=0, validators=[MinValueValidator(1), MaxValueValidator(100)]
+    )
     test_description = models.TextField()
     test_body = models.TextField()
     test_date = models.DateField()
@@ -28,4 +29,3 @@ class Grades(models.Model):
 
     def __str__(self):
         return f"{self.test_name} - {self.date}"
-
