@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cover Template · Bootstrap v5.3</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/style/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/style/css/style.css" rel="stylesheet">
+</head>
+<body class="d-flex h-100 text-center text-bg-dark">
+
+<div class="container d-flex w-100 h-100 p-6 mx-auto flex-column">
+    <header class="mb-auto">
+        <div>
+            <h3 class="float-md-start mb-0">Cover</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="
+{% url 'schema-swagger-ui' %}">Swagger</a>
+                <!-- <a class="nav-link fw-bold py-1 px-0" href="#">Features</a> -->
+                <a class="nav-link fw-bold py-1 px-0" href="#">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    {% block body %} {% endblock %}
+
+    <footer class="mt-auto text-white-50">
+        <p>Developed by <a href="https://github.com/AlexTkDev/" class="text-white">AlexTkDev</a></p>
+    </footer>
+</div>
+
+
+<script src="../../static/style/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
