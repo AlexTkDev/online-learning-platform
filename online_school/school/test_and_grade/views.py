@@ -31,7 +31,7 @@ class CourseRetriveUpdateDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class GradeListAPIView(generics.ListAPIView):
-    queryset = Grades.objects.all()
+    queryset = Grades.objects.filter(pk__in=Grades.objects.values_list('pk', flat=True))
     serializer_class = GradesSerializer
     permission_classes = [IsAuthenticated]
 
