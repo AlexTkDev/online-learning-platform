@@ -8,7 +8,8 @@ from users.models import User
 
 
 class CourseListAPIView(generics.ListAPIView):
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().prefetch_related(
+        'students')  # для предварительной загрузки связанных объектов "многие ко многим"
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
 
@@ -20,7 +21,7 @@ class CreateCourseAPIView(generics.CreateAPIView):
 
 
 class RetriveUpdateDestroyCoursesAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().prefetch_related('students')
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
 
@@ -31,7 +32,7 @@ class AddStudentToCourseAPIView(APIView):
     def post(self, request, course_id, user_id):
         try:
             # Получаем курс по его идентификатору (course_id)
-            course = Course.objects.get(pk=course_id)
+            course = Course.objects.prefetch_related('students').get(pk=course_id)
             # Получаем пользователя по его идентификатору (user_id)
             user = User.objects.get(pk=user_id)
 

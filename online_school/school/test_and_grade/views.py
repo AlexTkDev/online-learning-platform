@@ -10,19 +10,21 @@ from .serializers import GradesSerializer
 
 
 class CourseListAPIView(generics.ListAPIView):
-    queryset = Tests.objects.all()
-    serializer_class = CourseSerializer
+    # select_related('test_from_course'):
+    # Для модели Tests, это позволяет выполнить JOIN с таблицей Course
+    # и получить связанные данные курса в одном запросе.
+    queryset = Tests.objects.select_related('test_from_course')
     permission_classes = [IsAuthenticated]
 
 
 class CourseDetailAPIView(generics.ListCreateAPIView):
-    queryset = Tests.objects.all()
+    queryset = Tests.objects.select_related('test_from_course')
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
 
 
 class CourseRetriveUpdateDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Tests.objects.all()
+    queryset = Tests.objects.select_related('test_from_course')
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
 
@@ -31,8 +33,6 @@ class CourseRetriveUpdateDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class GradeListAPIView(generics.ListAPIView):
-    queryset = Grades.objects.filter(pk__in=Grades.objects.values_list('pk', flat=True))
+    queryset = Grades.objects.select_related('test_name', 'student_name')
     serializer_class = GradesSerializer
     permission_classes = [IsAuthenticated]
-
-
