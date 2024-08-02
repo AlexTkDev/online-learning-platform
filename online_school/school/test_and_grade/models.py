@@ -8,9 +8,7 @@ User = get_user_model()
 
 
 class Tests(models.Model):
-    test_name = models.IntegerField(
-        default=0, validators=[MinValueValidator(1), MaxValueValidator(100)]
-    )
+    test_name = models.CharField(max_length=100)
     test_description = models.TextField()
     test_body = models.TextField()
     test_date = models.DateField()
@@ -22,9 +20,11 @@ class Tests(models.Model):
 
 
 class Grades(models.Model):
-    test_name = models.ForeignKey(Tests.test_name, on_delete=models.CASCADE)
-    grade = models.IntegerField(max_length=100)
-    student_name = models.ForeignKey(User.username, on_delete=models.CASCADE)
+    test_name = models.ForeignKey(Tests, on_delete=models.CASCADE, related_name='grades')
+    grade = models.IntegerField(
+        default=0, validators=[MinValueValidator(1), MaxValueValidator(100)]
+    )
+    student_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='grades')
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
