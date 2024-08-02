@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "test_and_grade",
     "users",
     "videolessons",
+    "blog_posts"
 ]
 
 MIDDLEWARE = [
