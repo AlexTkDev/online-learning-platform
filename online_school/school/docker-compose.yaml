@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   database:
     image: "postgres:16"
@@ -13,7 +11,7 @@ services:
     volumes:
       - "pg_data:/var/lib/postgresql/data"
 
-  api: &app
+  api_online_school:
     build:
       context: .
       dockerfile: Dockerfile
