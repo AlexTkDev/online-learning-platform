@@ -8,7 +8,7 @@ class PostListView(View):
     template_name = 'online_school/index.html'
 
     def get(self, request, *args, **kwargs):
-        api_url = 'http://localhost:9000/api/blog/'
+        api_url = 'http://192.168.0.102:9000/api/blog/'
         try:
             # Получаю посты из api_url
             response = requests.get(api_url)
