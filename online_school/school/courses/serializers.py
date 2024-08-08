@@ -6,6 +6,7 @@ from users.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        ref_name = 'CourseUserSerializer'
         fields = ['id', 'username', 'first_name', 'last_name']
 
 

@@ -37,6 +37,6 @@ urlpatterns = [
     path('api/tests/', include('test_and_grade.urls')),
 
     # Videolessons ================================================
-    path('api/videolessons', include('videolessons.urls')),
+    path('api/videolessons/', include('videolessons.urls')),
 
 ]
