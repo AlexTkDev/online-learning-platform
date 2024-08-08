@@ -87,6 +87,7 @@
 ```
 ├── online_school/
 │   ├── school/
+│   │   ├── blog_posts/
 │   │   ├── config/
 │   │   ├─ courses/
 │   │   ├── tests_and_grade/
