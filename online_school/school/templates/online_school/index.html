@@ -6,14 +6,14 @@
     <main class="px-6">
         <h1>Blog Posts</h1>
         <ul>
-            {% for post in post_list %}
+            {% for post in posts %}
                 <li>
                     <h2>{{ post.title }}</h2>
                     <p>{{ post.body }}</p>
-                    <a href="{% url 'post-detail' post.id %}">Read more</a>
+{#                    <a href="{% url 'post-detail' post.id %}">Read more</a>#}
                 </li>
             {% empty %}
-                <p>No blog posts available.</p>
+                <p>No blog posts available .</p>
             {% endfor %}
         </ul>
     </main>
