@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     # frameworks
     "rest_framework",
+    'drf_yasg',
+
     # apps
     "config",
     "courses",
@@ -95,8 +98,6 @@ DATABASES = {
     }
 }
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -132,7 +133,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']  # Указывает директорию для статических файлов
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
