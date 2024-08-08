@@ -7,9 +7,9 @@ from drf_yasg import openapi
 # Конфигурация схемы API для Swagger
 schema_view = get_schema_view(
     openapi.Info(
-        title="Blog API",
+        title="Online school API",chore
         default_version='v1',
-        description="List messages from blog",
+        description="List school endpoints",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
