@@ -5,12 +5,12 @@ from django.views.generic import View
 
 class PostListView(View):
     http_method_names = ['get', 'post']
-    template_name = 'blog_posts/post_list.html'
-    context_object_name = 'post_list'
+    template_name = 'online_school/index.html'
 
     def get(self, request, *args, **kwargs):
         api_url = 'http://localhost:9000/api/blog/'
         try:
+            # Получаю посты из api_url
             response = requests.get(api_url)
             response.raise_for_status()  # Генерируем исключение для HTTP ошибок
             posts = response.json()
