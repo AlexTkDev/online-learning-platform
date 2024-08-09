@@ -1,10 +1,17 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, BasePermission
 from rest_framework.views import APIView
 from courses.models import Course
 from courses.serializers import CourseSerializer
 from users.models import User
+from users.enums import Role
+
+
+# Доступ только для преподавателя и админа
+class IsTeacherOrAdmin(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.role in [Role.Teacher.name, Role.Admin.name]
 
 
 class CourseListAPIView(generics.ListAPIView):
@@ -17,7 +24,7 @@ class CourseListAPIView(generics.ListAPIView):
 class CreateCourseAPIView(generics.CreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsTeacherOrAdmin]
 
 
 class RetriveUpdateDestroyCoursesAPIView(generics.RetrieveUpdateDestroyAPIView):
