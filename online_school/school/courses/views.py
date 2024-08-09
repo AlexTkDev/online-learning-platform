@@ -30,11 +30,11 @@ class CreateCourseAPIView(generics.CreateAPIView):
 class RetriveUpdateDestroyCoursesAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all().prefetch_related('students')
     serializer_class = CourseSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsTeacherOrAdmin]
 
 
 class AddStudentToCourseAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsTeacherOrAdmin]
 
     def post(self, request, course_id, user_id):
         try:
