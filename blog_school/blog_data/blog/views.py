@@ -5,7 +5,7 @@ from blog.serializers import PostSerializer
 
 class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter(is_published=True)
 
 
 class CreatePost(generics.CreateAPIView):
