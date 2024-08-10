@@ -4,16 +4,22 @@
 
 {% block body %}
     <main class="px-6">
-        <h3>Blog Posts</h3>
+        <h3>Blog Posts</h3><br>
         <ul>
             {% for post in post_list %}
                 <li>
                     <h5>{{ post.title }}</h5>
-                    <p>{{ post.body }}</p>
-{#                    <a href="{% url 'post-detail' post.id %}">Read more</a>#}
-                </li>
+                    <i>Author: {{ post.author }},
+                        published: {{ post.post_date }} </i>
+                    <p>{{ post.body|truncatechars:250 }} 
+                        <a class="mt-auto text-white-50" 
+                           href="{% url 'post-detail' pk=post.id %}">
+                            Read more
+                        </a>
+                    </p>
+                </li><br>
             {% empty %}
-                <p>No blog posts available .</p>
+                <p>No blog posts available.</p>
             {% endfor %}
         </ul>
     </main>
