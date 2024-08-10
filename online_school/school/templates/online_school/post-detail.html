@@ -1,0 +1,19 @@
+{% extends "online_school/base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+    <main class="px-6">
+        <h3>Post Detail</h3><br>
+        {% if post %}
+            <h5>{{ post.title }}</h5>
+            <p><i>Author: {{ post.author }},
+                published: {{ post.post_date }} </i>
+            </p>
+            <p>{{ post.body }}</p>
+        {% else %}
+            <p>Post not found.</p>
+        {% endif %}
+        <a class="mt-auto text-white-50" href="/">Return to home page</a>
+    </main>
+{% endblock %}
