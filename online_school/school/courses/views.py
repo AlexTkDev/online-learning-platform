@@ -47,15 +47,18 @@ class AddStudentToCourseAPIView(APIView):
                 # Добавляем студента в список студентов курса
                 course.students.add(user)
                 # Возвращаем успешный ответ
-                return Response({"status": "success", "message": "Student added to the course"},
-                                status=status.HTTP_200_OK)
+                return Response(
+                    {"status": "success", "message": "Student added to the course"},
+                    status=status.HTTP_200_OK)
             else:
                 # Если пользователь не студент, возвращаем ошибку
                 return Response({"status": "error", "message": "User is not a student"},
                                 status=status.HTTP_400_BAD_REQUEST)
         except Course.DoesNotExist:
             # Если курс не найден, возвращаем ошибку
-            return Response({"status": "error", "message": "Course not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"status": "error", "message": "Course not found"},
+                            status=status.HTTP_404_NOT_FOUND)
         except User.DoesNotExist:
             # Если пользователь не найден, возвращаем ошибку
-            return Response({"status": "error", "message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"status": "error", "message": "User not found"},
+                            status=status.HTTP_404_NOT_FOUND)
