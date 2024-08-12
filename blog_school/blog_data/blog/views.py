@@ -5,7 +5,7 @@ from blog.serializers import PostSerializer
 
 class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
-    queryset = Post.objects.filter(is_published=True)
+    queryset = Post.objects.filter(is_published=True).order_by('-updated')
 
 
 class CreatePost(generics.CreateAPIView):
@@ -14,7 +14,7 @@ class CreatePost(generics.CreateAPIView):
 
 
 class UpdatePost(generics.RetrieveUpdateAPIView):
-    http_method_names = ['post', 'get', 'put', 'patch']
+    http_method_names = ['put', 'patch', 'post', 'get']
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
