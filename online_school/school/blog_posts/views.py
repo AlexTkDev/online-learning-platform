@@ -64,6 +64,7 @@ from django.shortcuts import redirect
 
 
 class PostUpdateView(View):
+    http_method_names = ['get', 'post', 'put', 'patch']
     template_name = 'online_school/post-update.html'
 
     def get(self, request, pk, *args, **kwargs):
@@ -101,4 +102,4 @@ class PostUpdateView(View):
                 'post': data,
                 'title': 'Edit Post',
             }
-            return redirect('post-detail', pk=pk)
+            return render(request, self.template_name, context)
