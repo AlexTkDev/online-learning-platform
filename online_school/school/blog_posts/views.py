@@ -92,7 +92,7 @@ class PostUpdateView(View):
         }
 
         try:
-            response = requests.patch(api_url, json=data)  # Используйте PATCH вместо POST
+            response = requests.patch(api_url, json=data)
             response.raise_for_status()
             return redirect('post-detail', pk=pk)
         except requests.exceptions.RequestException as e:
