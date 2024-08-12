@@ -4,9 +4,12 @@
 
 {% block body %}
     <main class="px-6">
-        <h3>Post Detail</h3><br>
+        <h3>Post Detail </h3><br>
         {% if post %}
-            <h5>{{ post.title }}</h5>
+            <h5>{{ post.title }} </h5>
+            <a class="mt-auto text-white-50" href="{% url 'post-update' pk=post.id %}">
+                edit post
+            </a>
             <p><i>Author: {{ post.author }},
                 published: {{ post.post_date }} </i>
             </p>

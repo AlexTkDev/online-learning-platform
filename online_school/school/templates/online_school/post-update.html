@@ -1,0 +1,28 @@
+{% extends "online_school/base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+    <main class="px-6">
+        <h3>Edit post </h3><br>
+        <div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title:</label>
+                    <input class='form-control py-4' type="text" id="title" name="title"
+                           value="{{ post.title }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="body">Body:</label>
+                    <textarea class='form-control' id="body" name="body" rows="20"
+                    >{{ post.body }}</textarea>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-secondary" type="submit">Save</button>
+                </div>
+            </form>
+            <a class="mt-auto text-white-50" href="/">Return to home page</a>
+        </div>
+    </main>
+{% endblock %}

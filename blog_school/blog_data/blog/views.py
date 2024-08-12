@@ -13,6 +13,12 @@ class CreatePost(generics.CreateAPIView):
     queryset = Post.objects.all()
 
 
+class UpdatePost(generics.RetrieveUpdateAPIView):
+    http_method_names = ['post', 'get', 'put', 'patch']
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
