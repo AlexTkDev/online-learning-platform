@@ -11,8 +11,8 @@
                     <h5>{{ post.title }}</h5>
                     <i>Author: {{ post.author }},
                         published: {{ post.post_date }} </i>
-                    <p>{{ post.body|truncatechars:250 }} 
-                        <a class="mt-auto text-white-50" 
+                    <p>{{ post.body|truncatechars:250 }}
+                        <a class="mt-auto text-white-50"
                            href="{% url 'post-detail' pk=post.id %}">
                             Read more
                         </a>
