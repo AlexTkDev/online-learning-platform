@@ -86,20 +86,27 @@
 ### ProjectA LMS_online_school/
 ```
 ├── online_school/
-│   ├── school/
-│   │   ├── blog_posts/
-│   │   ├── config/
-│   │   ├─ courses/
-│   │   ├── tests_and_grade/
-│   │   ├── users/
-│   │   ├── video_lessons/
-│   │   ├── tests/
-│   │   │   ├── test_models.py
-│   │   │   ├── test_views.py
-│   │   │   ├── test_urls.py
+│    └── school/
+│        ├── blog_posts/
+│        ├── config/
+│        ├─ courses/
+│        ├── tests_and_grade/
+│        ├── templates/
+│        │   ├── online-school/
+│        │   └── users/
+│        │
+│        │
+│        ├── static/
+│        ├── users/
+│        ├── video_lessons/
+│        └── tests/
+│           └──ttest_urls.py
+│           
+│
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
+├── .env.example
 └── manage.py
 ```
 
@@ -107,13 +114,13 @@
 ```
 ├── blog_school/
 │   ├── blog_data/
-│   ├── config/
-│   ├── tests/
-│   │   ├── test_models.py
-│   │   ├── test_views.py
-│   │   ├── test_urls.py
+│       ├── config/
+│       └──  tests/
+│             └── test_models.py
+│      
 ├── Dockerfile
 ├── docker-compose.yml
+├── .env.example
 ├── requirements.txt
 └── manage.py
 ```
