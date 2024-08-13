@@ -106,6 +106,7 @@
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
+├── .env.example
 └── manage.py
 ```
 
@@ -119,6 +120,7 @@
 │      
 ├── Dockerfile
 ├── docker-compose.yml
+├── .env.example
 ├── requirements.txt
 └── manage.py
 ```
