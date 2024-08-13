@@ -1,9 +1,12 @@
+import os
+from dotenv import load_dotenv
 import requests
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from datetime import datetime
 
-PATH = 'http://192.168.0.105:9000'
+load_dotenv()
+API_BASE_URL = os.getenv('API_BASE_URL')
 
 
 class PostListView(View):
@@ -11,7 +14,7 @@ class PostListView(View):
     template_name = 'online_school/index.html'
 
     def get(self, request, *args, **kwargs):
-        api_url = f'{PATH}/api/blog/'
+        api_url = f'{API_BASE_URL}/api/blog/'
         try:
             # Получаю посты из api_url
             response = requests.get(api_url)
@@ -38,7 +41,7 @@ class PostDetailView(View):
     template_name = 'online_school/post-detail.html'
 
     def get(self, request, pk, *args, **kwargs):
-        api_url = f'{PATH}/api/blog/post/{pk}/'
+        api_url = f'{API_BASE_URL}/api/blog/post/{pk}/'
         try:
             response = requests.get(api_url)
             response.raise_for_status()
@@ -60,15 +63,12 @@ class PostDetailView(View):
         return render(request, self.template_name, context)
 
 
-from django.shortcuts import redirect
-
-
 class PostUpdateView(View):
     http_method_names = ['get', 'post', 'put', 'patch']
     template_name = 'online_school/post-update.html'
 
     def get(self, request, pk, *args, **kwargs):
-        api_url = f'{PATH}/api/blog/update/{pk}/'
+        api_url = f'{API_BASE_URL}/api/blog/update/{pk}/'
         try:
             response = requests.get(api_url)
             response.raise_for_status()
@@ -86,7 +86,7 @@ class PostUpdateView(View):
     def post(self, request, pk, *args, **kwargs):
         title = request.POST.get('title')
         body = request.POST.get('body')
-        api_url = f'{PATH}/api/blog/update/{pk}/'
+        api_url = f'{API_BASE_URL}/api/blog/update/{pk}/'
         data = {
             'title': title,
             'body': body,
@@ -101,5 +101,36 @@ class PostUpdateView(View):
             context = {
                 'post': data,
                 'title': 'Edit Post',
+            }
+            return render(request, self.template_name, context)
+
+
+class PostCreateView(View):
+    template_name = 'online_school/post-create.html'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'title': 'Create Post',
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        title = request.POST.get('title')
+        body = request.POST.get('body')
+        api_url = f'{API_BASE_URL}/api/blog/create/'
+        data = {
+            'title': title,
+            'body': body,
+        }
+        try:
+            response = requests.post(api_url, json=data)
+            response.raise_for_status()
+            return redirect('index')
+        except requests.exceptions.RequestException as e:
+            print(f"Error creating post: {e}")
+            context = {
+                'post': data,
+                'title': 'Create Post',
+                'error': 'There was an error creating the post. Please try again.',
             }
             return render(request, self.template_name, context)
