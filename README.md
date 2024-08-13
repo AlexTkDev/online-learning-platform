@@ -91,6 +91,10 @@
 │   │   ├── config/
 │   │   ├─ courses/
 │   │   ├── tests_and_grade/
+│   │   ├── templates/
+│   │   │   ├── online-school/
+│   │   │   └── users/
+│   │   ├── static/
 │   │   ├── users/
 │   │   ├── video_lessons/
 │   │   ├── tests/
