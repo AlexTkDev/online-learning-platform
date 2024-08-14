@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from courses.models import Course
 from users.models import User
+from users.enums import Role
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -11,7 +12,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    students = UserSerializer(many=True, read_only=True)
+    students = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.filter(role=Role.Student.name),
+        many=True,
+        required=False
+    )
 
     class Meta:
         model = Course
