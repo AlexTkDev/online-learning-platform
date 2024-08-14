@@ -1,56 +1,73 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.contrib import messages
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
 from rest_framework import status
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .forms import MeetingForm
 from django_zoom_meetings import ZoomMeetings
-from .serializers import MeetingSerializer
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
 
-class CreateMeetingView(APIView):
+
+class CreateMeetingView(FormView):
+    template_name = 'videolessons/meeting-create.html'
+    form_class = MeetingForm
+    success_url = reverse_lazy('index')
+    permission_classes = [AllowAny]
+
+    def get_zoom_API(self) -> ZoomMeetings:
+        """Initialize the ZoomMeetings object with environment variables."""
+        return ZoomMeetings(
+            os.getenv('VERIFICATION_TOKEN'),
+            os.getenv('SECRET_TOKEN'),
+            os.getenv('E_MAIL')
+        )
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        # Create a meeting via the Zoom API
+        try:
+            zoom = self.get_zoom_API()
+            # Create the meeting, adjusting parameters based on API requirements
+            create_meeting = zoom.CreateMeeting(
+                date=data['date'],
+                topic=data['topic'],
+                meeting_duration=data['duration'],
+                meeting_password=data['password'],
+            )
+            # Check if the meeting was created successfully
+            if create_meeting:
+                # Add success message
+                messages.success(self.request, "Conference successfully created!")
+                return super().form_valid(form)
+            else:
+                form.add_error(None, "Failed to create the meeting.")
+                return self.form_invalid(form)
+        except Exception as e:
+            # Log the error and return the form error
+            form.add_error(None, f"Error creating meeting: {str(e)}")
+            return self.form_invalid(form)
+
+
+class GetMeetingView(APIView):
     """
-    Представление для создания встречи Zoom.
+    View for retrieving Zoom meeting information.
     """
 
-    def post(self, request):
-        # Создаем экземпляр сериализатора с данными из запроса
-        serializer = MeetingSerializer(data=request.data)
-
-        # Проверяем валидность данных
-        if serializer.is_valid():
-            # Инициализируем объект ZoomMeetings с параметрами из переменных окружения
+    def get(self, request, meeting_id):
+        try:
+            # Initialize the ZoomMeetings object with environment variables
             zoom = ZoomMeetings(
                 os.getenv('VERIFICATION_TOKEN'),
                 os.getenv('SECRET_TOKEN'),
                 os.getenv('E_MAIL')
             )
-            data = serializer.validated_data  # Доступ к валидным данным
-            # Создаем встречу через API Zoom
-            response = zoom.create_meeting(
-                date=data['date'].isoformat(),
-                topic=data['topic'],
-                duration=data['duration'],
-                password=data.get('password', '')
-            )
-            # Возвращаем ответ с созданной встречей и статусом 201
-            return Response(response, status=status.HTTP_201_CREATED)
-
-        # Возвращаем ошибки валидации со статусом 400
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class GetMeetingView(APIView):
-    """
-    Представление для получения информации о встрече Zoom.
-    """
-
-    def get(self, request, meeting_id):
-        # Инициализируем объект ZoomMeetings с параметрами из переменных окружения
-        zoom = ZoomMeetings(
-            os.getenv('VERIFICATION_TOKEN'),
-            os.getenv('SECRET_TOKEN'),
-            os.getenv('E_MAIL')
-        )
-        # Получаем информацию о встрече по ID
-        response = zoom.get_meeting(meeting_id)
-        # Возвращаем ответ с информацией о встрече и статусом 200
-        return Response(response, status=status.HTTP_200_OK)
+            # Retrieve meeting information by ID
+            response = zoom.get_meeting(meeting_id)
+            return Response(response, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
