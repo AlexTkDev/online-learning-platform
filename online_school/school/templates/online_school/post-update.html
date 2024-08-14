@@ -10,12 +10,12 @@
                 {% csrf_token %}
                 <div class="mb-3">
                     <label class="form-label" for="title">Title:</label>
-                    <input class='form-control py-4' type="text" id="title" name="title"
+                    <input class='form-control form-control-smpy-4' type="text" id="title" name="title"
                            value="{{ post.title }}">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="body">Body:</label>
-                    <textarea class='form-control' id="body" name="body" rows="20"
+                    <textarea class='form-control form-control-sm' id="body" name="body" rows="20"
                     >{{ post.body }}</textarea>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
