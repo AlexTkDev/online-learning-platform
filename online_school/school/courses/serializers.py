@@ -12,6 +12,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    course_name = serializers.SerializerMethodField(source='course.course_name', read_only=True)
+    teacher_name = serializers.SerializerMethodField(source='teacher.teacher_name', read_only=True)
     students = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.filter(role=Role.Student.name),
         many=True,
