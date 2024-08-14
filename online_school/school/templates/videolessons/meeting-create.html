@@ -1,0 +1,30 @@
+{% extends "online_school/base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+    <main class="px-6">
+        <h3>Create Meeting</h3>
+        <br>
+        <form method="post" action="{% url 'create-meeting' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="date" class="form-label">Date and Time meeting</label>
+                <input type="datetime-local" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="topic" class="form-label">Topic meeting</label>
+                <input type="text" class="form-control" id="topic" name="topic" required>
+            </div>
+            <div class="mb-3">
+                <label for="duration" class="form-label">Duration minutes</label>
+                <input type="text" class="form-control" id="duration" name="duration" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="text" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-secondary">Create Meeting</button>
+        </form>
+    </main>
+{% endblock %}
