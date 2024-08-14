@@ -19,16 +19,29 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('role', 'is_staff', 'is_active')
     search_fields = ('username', 'email')
 
-    fieldsets = BaseUserAdmin.fieldsets + (
-        (None, {'fields': ('role',)}),
-    )
+    readonly_fields = (
+        'role', 'is_staff', 'is_active', 'is_superuser', 'username', 'last_login', 'date_joined')
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        form.base_fields['role'].choices = [
-            (tag.name, tag.value) for tag in Role
-        ]
-        return form
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super().get_fieldsets(request, obj)
+
+        if obj and obj.role == Role.Student.value:
+            # Убираю права и группы для студентов
+            fieldsets = [
+                (name, {'fields': [field for field in fields['fields'] if
+                                   field not in ('groups', 'user_permissions')]})
+                for name, fields in fieldsets
+            ]
+
+        return fieldsets
+
+    # Возможность изменять через админку поле "Role"
+    # def get_form(self, request, obj=None, **kwargs):
+    #     form = super().get_form(request, obj, **kwargs)
+    #     form.base_fields['role'].choices = [
+    #         (role.value, role.value) for role in Role
+    #     ]
+    #     return form
 
 
 admin.site.register(User, UserAdmin)
