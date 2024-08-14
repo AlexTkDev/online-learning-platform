@@ -9,7 +9,7 @@
             {% for post in post_list %}
                 <li>
                     <h5>{{ post.title }}</h5>
-                    <i>Author: {{ post.author }},
+                    <i class="mt-auto text-white-50">Author: {{ post.author }},
                         published: {{ post.post_date }} </i>
                     <p>{{ post.body|truncatechars:250 }}
                         <a class="mt-auto text-white-50"

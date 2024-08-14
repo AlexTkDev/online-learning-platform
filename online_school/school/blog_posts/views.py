@@ -117,10 +117,15 @@ class PostCreateView(View):
     def post(self, request, *args, **kwargs):
         title = request.POST.get('title')
         body = request.POST.get('body')
+        author = request.POST.get('author')
+        # Преобразую значение чекбокса в True или False
+        is_published = request.POST.get('is_published') == 'on'
         api_url = f'{API_BASE_URL}/api/blog/create/'
         data = {
             'title': title,
             'body': body,
+            'author': author,
+            'is_published': is_published,
         }
         try:
             response = requests.post(api_url, json=data)
