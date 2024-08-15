@@ -1,9 +1,11 @@
+version: '3.9'
+
 services:
   database:
     image: "postgres:16"
     container_name: online_school_database
     ports:
-      - "5435:5432"   # Внешний порт:Внутренний порт
+      - "5435:5432"
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -23,6 +25,29 @@ services:
       - ".env"
     depends_on:
       - database
+      - redis
+    volumes:
+      - ./:/app/
+    environment:
+      COMMAND: "python manage.py runserver 0.0.0.0:8000"
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: online_school
+    container_name: online_school_celery
+    command: >
+      /bin/sh -c "sleep 10 && celery -A config worker --loglevel=info"
+    depends_on:
+      - redis
+      - api_online_school
     volumes:
       - ./:/app/
 

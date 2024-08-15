@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+import logging
 from dotenv import load_dotenv
+from celery.schedules import crontab
 from pathlib import Path
 
 # Load environment variables from .env file
@@ -44,6 +46,10 @@ INSTALLED_APPS = [
     # frameworks
     "rest_framework",
     'drf_yasg',
+
+    # Celery applications
+    # "django_celery_beat",
+    # "django_celery_results",
 
     # apps
     "config",
@@ -147,3 +153,35 @@ REST_FRAMEWORK = {
     ]
 }
 AUTH_USER_MODEL = "users.User"
+
+# Celery
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
+
+# Console Backend (для отладки, выводит email в консоль)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Для реальной отправки
+# EMAIL_HOST = 'smtp.your-email-provider.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@example.com'
+# EMAIL_HOST_PASSWORD = 'your-email-password'
