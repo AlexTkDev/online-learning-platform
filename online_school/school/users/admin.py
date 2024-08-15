@@ -20,7 +20,7 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('username', 'email')
 
     readonly_fields = (
-        'role', 'is_staff', 'is_superuser', 'username', 'last_login', 'date_joined')
+        'role', 'is_staff', 'is_active', 'is_superuser', 'username', 'last_login', 'date_joined')
 
     def get_fieldsets(self, request, obj=None):
         fieldsets = super().get_fieldsets(request, obj)
