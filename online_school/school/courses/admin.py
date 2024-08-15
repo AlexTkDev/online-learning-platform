@@ -1,8 +1,10 @@
 from django import forms
 from django.contrib import admin
 from courses.models import Course
-from users.models import User
+from django.contrib.auth import get_user_model
 from users.enums import Role
+
+User = get_user_model()
 
 
 class CourseAdminForm(forms.ModelForm):
