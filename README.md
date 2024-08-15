@@ -59,7 +59,6 @@
 
 ### 5. Тестирование
 
-#### ProjectA
 - **Blog**: Для проверки создания записи в блоге используем django.test, файл test_views.py в директории blog/tests/. Запускается командой:
 ```sh
   docker-compose exec api python manage.py test blog.tests.test_views
