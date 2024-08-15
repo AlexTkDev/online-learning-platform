@@ -139,3 +139,16 @@ class PostCreateView(View):
                 'error': 'There was an error creating the post. Please try again.',
             }
             return render(request, self.template_name, context)
+
+
+class PostDeleteView(View):
+    http_method_names = ['post']
+
+    def post(self, request, pk, *args, **kwargs):
+        api_url = f'{API_BASE_URL}/api/blog/post/{pk}/'
+        response = requests.delete(api_url)
+
+        if response.status_code == 204:
+            return redirect('index')
+        else:
+            return redirect('post-detail', pk=pk)

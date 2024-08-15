@@ -9,6 +9,14 @@
             {% for post in post_list %}
                 <li>
                     <h5>{{ post.title }}</h5>
+                    <span>
+                        <form action="{% url 'post-delete' pk=post.id %}" method="post"
+                              style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    class="btn btn-secondary text-white-50 btn-sm">X</button>
+                        </form>
+                    </span>
                     <i class="mt-auto text-white-50">Author: {{ post.author }},
                         published: {{ post.post_date }} </i>
                     <p>{{ post.body|truncatechars:250 }}
