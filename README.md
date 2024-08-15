@@ -59,11 +59,22 @@
 
 ### 5. Тестирование
 
-#### ProjectA
 - **Blog**: Для проверки создания записи в блоге используем django.test, файл test_views.py в директории blog/tests/. Запускается командой:
 ```sh
   docker-compose exec api python manage.py test blog.tests.test_views
 ```
+
+- **Online School**: Для проверки, может ли авторизованный пользователь с ролью преподавателя или администратора успешно создать курс. Теста с использованием **APITestCase из rest_framework.test.**. Запускается командой:
+```sh
+docker-compose exec api_online_school python manage.py test tests.test
+```
+
+### Объяснение:
+
+- **`setUp`**: Создает пользователей (преподавателя и студента) и определяет URL для создания курса.
+- **`test_create_course_as_teacher`**: Проверяет, что преподаватель может успешно создать курс и что курс создается в базе данных.
+- **`test_create_course_as_student`**: Проверяет, что студент не может создать курс и что курс не создается в базе данных.
+
 
 #### ProjectA
 - **Online-school**:
@@ -133,3 +144,7 @@
 - GitHub репозиторий: [online-learning-platform](https://github.com/AlexTkDev/online-learning-platform.git)
 
 Проект "Online Learning Platform" на данный момент находится на стадии разработки.
+
+
+
+
