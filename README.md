@@ -101,13 +101,15 @@ docker-compose exec api_online_school python manage.py test tests.test
 ### ProjectA LMS_online_school/
 ```
 ├── online_school/
+│    ├── .gitignore
 │    └── school/
 │        ├── blog_posts/
 │        ├── config/
-│        ├─ courses/
+│        ├── courses/
 │        ├── tests_and_grade/
 │        ├── templates/
 │        │   ├── online-school/
+│        │   ├── videolessons/
 │        │   └── users/
 │        │
 │        │
@@ -115,23 +117,26 @@ docker-compose exec api_online_school python manage.py test tests.test
 │        ├── users/
 │        ├── video_lessons/
 │        └── tests/
-│           └──ttest_urls.py
+│           └──ttest.py
 │           
 │
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
 ├── .env.example
+├── redis.conf
 └── manage.py
 ```
 
 ### ProjectB Blog/
 ```
 ├── blog_school/
-│   ├── blog_data/
+│   ├── .gitignore
+│   └──  blog_data/
 │       ├── config/
+│       ├── blog/
 │       └──  tests/
-│             └── test_models.py
+│             └── test_views.py
 │      
 ├── Dockerfile
 ├── docker-compose.yml
