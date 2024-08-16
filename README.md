@@ -122,7 +122,9 @@ docker-compose exec api_online_school python manage.py test tests.test
 └── manage.py
 ```
 
-## Links - GitHub repository: [online-learning-platform](https://github.com/AlexTkDev/online-learning-platform.git)
+
+## Links 
+- GitHub repository: [online-learning-platform](https://github.com/AlexTkDev/online-learning-platform.git)
 
 ***
 
