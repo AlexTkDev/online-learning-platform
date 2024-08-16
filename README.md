@@ -14,30 +14,30 @@ The "Online Learning Platform" project consists of two separate Django projects:
 #### ProjectA (LMS_online_school)
 - **Technologies**: Django, Django REST Framework (DRF)
 - **Functionality**:
-- Creating and delivering online courses.
-- Assessing student results.
-- Webinars and video lessons in real time.
-- Individual consultations.
-- User role (student/teacher).
+  - Creating and delivering online courses.
+  - Assessing student results.
+  - Webinars and video lessons in real time.
+  - Individual consultations.
+  - User role (student/teacher).
 
 #### ProjectB (Blog)
 - **Technologies**: Django, Django REST Framework (DRF)
 - **Functionality**:
-- Blog for publishing articles.
+  - Blog for publishing articles.
 
 ### 2. REST API
 #### ProjectA
 - **Technologies used**: Django REST Framework
 - **API functionality**:
-- Course management (creation, update, deletion, retrieval).
-- User registration and management.
-- Test and grade management.
-- Interface for webinars and video lessons (using: [ZOOM API](https://github.com/JoeyAlpha5/django-zoom-meetings)).
+  - Course management (creation, update, deletion, retrieval).
+  - User registration and management.
+  - Test and grade management.
+  - Interface for webinars and video lessons (using: [ZOOM API](https://github.com/JoeyAlpha5/django-zoom-meetings)).
 
 #### ProjectB
 - **Technologies used**: Django REST Framework
 - **API functionality**:
-- Blog management.
+  - Blog management.
 
 ### 3. API interaction
 - Setting up authentication and authorization using tokens.
@@ -45,8 +45,8 @@ The "Online Learning Platform" project consists of two separate Django projects:
 
 ### 4. Docker
 - **Containerization of ProjectA and ProjectB**:
-- Writing a Dockerfile for each project.
-- Creating `docker-compose.yml` to manage containers and networks between them.
+  - Writing a Dockerfile for each project.
+  - Creating `docker-compose.yml` to manage containers and networks between them.
 
 ### 5. Testing
 - **Blog**: To test the creation of a blog post, we use django.test, the test_views.py file in the blog/tests/ directory. Run with the command:
