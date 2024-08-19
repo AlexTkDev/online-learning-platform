@@ -137,7 +137,7 @@ venv
 
 # Rope project settings
 .ropeproject
-.idea
+../online-learning-platform/.idea
 
 # mkdocs documentation
 /site
