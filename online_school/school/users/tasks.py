@@ -9,6 +9,8 @@ def auto_activate_user(user_id):
     UserModel = get_user_model()
     try:
         user = UserModel.objects.get(pk=user_id)
+        if user.is_staff:
+            user.is_staff = False
         user.is_active = True
         user.save()
     except UserModel.DoesNotExist:
