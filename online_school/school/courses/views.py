@@ -8,7 +8,7 @@ from users.models import User
 from users.enums import Role
 
 
-# Доступ только для преподавателя и админа
+# Access only for teacher and admin
 class IsTeacherOrAdmin(BasePermission):
     def has_permission(self, request, view):
         return request.user.role in [Role.Teacher.name, request.user.is_superuser]
@@ -16,7 +16,7 @@ class IsTeacherOrAdmin(BasePermission):
 
 class CourseListAPIView(generics.ListAPIView):
     queryset = Course.objects.all().prefetch_related(
-        'students')  # для предварительной загрузки связанных объектов "многие ко многим"
+        'students')  # to preload many-to-many related objects
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
 
@@ -38,24 +38,24 @@ class AddStudentToCourseAPIView(APIView):
 
     def post(self, request, course_id, user_id):
         try:
-            # Получаю курс по его идентификатору (course_id)
+            # I get a course by its identifier (course_id)
             course = Course.objects.prefetch_related('students').get(pk=course_id)
-            # Получаем пользователя по его идентификатору (user_id)
+            # We get the user by his identifier (user_id)
             user = User.objects.get(pk=user_id)
 
             if user.role == Role.Student.name:
-                # Добавляю студента в список студентов курса
+                # Adding a student to the list of course students
                 course.students.add(user)
-                # Возвращаю успешный ответ
+                # I return a successful response
                 return Response(
                     {"status": "success", "message": "Student added to the course"},
                     status=status.HTTP_200_OK)
             else:
-                # Если пользователь не студент, возвращаю ошибку
+                # If the user is not a student, I return an error
                 return Response({"status": "error", "message": "User is not a student"},
                                 status=status.HTTP_400_BAD_REQUEST)
         except Course.DoesNotExist:
-            # Если курс не найден, возвращаю ошибку
+            # If the course is not found, I return an error
             return Response({"status": "error", "message": "Course not found"},
                             status=status.HTTP_404_NOT_FOUND)
         except User.DoesNotExist:

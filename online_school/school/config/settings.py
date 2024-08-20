@@ -177,9 +177,9 @@ LOGGING = {
     },
 }
 
-# Console Backend (для отладки, выводит email в консоль)
+# Console Backend (for debugging, outputs email to the console)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# Для реальной отправки
+# For real shipping
 # EMAIL_HOST = 'smtp.your-email-provider.com'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
