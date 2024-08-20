@@ -5,6 +5,13 @@
 {% block body %}
     <main class="px-6">
         <h3>Blog Posts</h3><br>
+        <h3>
+            {% if user.is_authenticated %}
+                Welcome, {{ user.username|title }}!
+            {% else %}
+                Welcome, Guest!
+            {% endif %}
+        </h3><br>
         <ul>
             {% for post in post_list %}
                 <li>
@@ -13,7 +20,7 @@
                         <form action="{% url 'post-delete' pk=post.id %}" method="post"
                               style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" 
+                            <button type="submit"
                                     class="btn btn-secondary text-white-50 btn-sm">X</button>
                         </form>
                     </span>
