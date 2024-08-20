@@ -19,8 +19,14 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('role', 'is_staff', 'is_active')
     search_fields = ('username', 'email')
 
-    readonly_fields = (
-        'role', 'is_staff', 'is_active', 'is_superuser', 'username', 'last_login', 'date_joined')
+    if not User.is_superuser:
+        readonly_fields = (
+            'role', 'is_staff', 'is_active', 'is_superuser', 'username', 'last_login',
+            'date_joined')
+    else:
+        readonly_fields = (
+            'role', 'is_active', 'is_superuser', 'username', 'last_login',
+            'date_joined')
 
     def get_fieldsets(self, request, obj=None):
         fieldsets = super().get_fieldsets(request, obj)
